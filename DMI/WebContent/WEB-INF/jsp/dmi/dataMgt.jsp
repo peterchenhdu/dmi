@@ -22,7 +22,7 @@
 <script type="text/javascript" src="<%=basePath%>resources/js/app/common.js"></script>
 <script type="text/javascript" src="<%=basePath%>resources/js/app/datamanage.js"></script>
 <script type="text/javascript" src="<%=basePath%>resources/js/jquery.form.js"></script>
-
+<script type="text/javascript" src="<%=basePath%>resources/js/bootstrap-dialog.min.js"></script>
 </head>
 <body>
 
