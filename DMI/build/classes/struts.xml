@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+
+
+	<package name="data" extends="json-default,struts-default" namespace="/data">
+		<action name="queryData" class="app.action.DataMgtAction" method="queryData">
+			<result type="json">
+				<param name="root">json</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+
+		<action name="downloadExcelTemplate" class="app.action.DataMgtAction"
+			method="downloadTemplate">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename="${exportFileName}"</param>
+				<param name="inputName">excelStream</param>
+			</result>
+		</action>
+		<action name="inportDBDateByExcel" class="app.action.DataMgtAction"
+			method="importData">
+			<result type="json">
+				<param name="root">json</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="exportDBDateByExcel" class="app.action.DataMgtAction"
+			method="exportDBDate">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename="${exportFileName}"</param>
+				<param name="inputName">excelStream</param>
+			</result>
+		</action>
+		<action name="addData" class="app.action.DataMgtAction" method="addData">
+			<result type="json">
+				<param name="root">json</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="loadData" class="app.action.DataMgtAction"
+			method="loadData">
+			<result type="json">
+				<param name="root">json</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="editData" class="app.action.DataMgtAction"
+			method="editData">
+			<result type="json">
+				<param name="root">json</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+
+		<action name="deleteData" class="app.action.DataMgtAction"
+			method="deleteData">
+			<result type="json">
+				<param name="root">json</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+
+		<action name="getDataMgtCfg" class="app.action.DataMgtAction"
+			method="getDataMgtCfg">
+			<result type="json">
+				<param name="root">json</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+
+		<action name="getValueByType" class="app.action.DataMgtSupportAction"
+			method="getValueByType">
+			<result type="json">
+				<param name="root">json</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+
+	</package>
+
+
+
+
+	<!-- Add packages here -->
+
+</struts>
