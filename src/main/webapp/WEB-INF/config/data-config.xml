@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datamgt>
+    <version>0.1</version>
+    <description>数据维护模块配置文件</description>
+    <tables>  
+        <table name="school" type="school" title="学校" classpath="cn.edu.hdu.dmi.app.model.School" hasXYValue="yes">
+            <fields>
+                <field dbName="gid" name="gid" type="int" title="ID" isPrimaryKey="true" isNull="no" maxLength="10" notEditFlag="true"/>
+                <field dbName="name" name="name" type="String" title="名称" isNull="no" maxLength="100"/>
+                <field dbName="address" name="address" type="String" title="地址" isNull="yes" maxLength="100"/>
+                <field dbName="worktime" name="worktime" type="String" title="工作时间" isNull="yes" maxLength="100"/>
+                <field dbName="phone" name="phone" type="String" title="联系方式" isNull="yes" maxLength="100"/>
+                <field dbName="image" name="image" type="String" title="图片地址" isNull="yes" maxLength="200"/>
+                <field dbName="description" name="description" type="String" title="描述" isNull="yes" maxLength="500"/>
+            </fields>           
+        </table>
+        
+       
+                
+        <table name="hotel" type="hotel" title="酒店" classpath="cn.edu.hdu.dmi.app.model.Hotel" hasXYValue="yes">
+            <fields>
+                <field dbName="gid" name="gid" type="int" title="ID" isNull="no" maxLength="10" notEditFlag="true"/>
+                <field dbName="name" name="name" type="String" title="名称" isNull="no" maxLength="100"/>
+                <field dbName="address" name="address" type="String" title="地址" isNull="yes" maxLength="100"/>
+                <field dbName="legalperson" name="legalperson" type="String" title="法人" isNull="yes" maxLength="100"/>
+                <field dbName="worktime" name="worktime" type="String" title="营业时间" isNull="yes" maxLength="100"/>
+                <field dbName="image" name="image" type="String" title="图片地址" isNull="yes" maxLength="200"/>
+                <field dbName="businessscope" name="businessscope" type="String" title="经营范围" isNull="yes" maxLength="100"/>
+                <field dbName="phone" name="phone" type="String" title="联系方式" isNull="yes" maxLength="100"/>
+                <field dbName="clickcount" name="clickcount" type="int" title="点击数" isNull="yes" notEditFlag="true" maxLength="9"/>
+                <field dbName="maxpeoplenum" name="maxpeoplenum" type="int" title="容纳人数" isNull="yes" maxLength="9"/>
+                <field dbName="monitorid" name="monitorid" type="int" title="监控点id" isNull="yes" maxLength="9"/>
+                <field dbName="recommendation" name="recommendation" type="String" title="推荐" isNull="yes" maxLength="1000"/>
+                <field dbName="avgprice" name="avgprice" type="String" title="均价" isNull="yes" maxLength="100"/>
+                <field dbName="haswifi" name="haswifi" type="String" title="Wifi" isNull="yes" maxLength="100"/>
+                <field dbName="monitortype" name="monitortype" type="String" title="监控点类型" isNull="yes" maxLength="100"/>
+                <!-- 
+                <field dbName="subtype" name="subtype" type="int" title="类别" isNull="no" maxLength="1000" inputType="multipleSelect" valueFrom="ajax" valueParam="hotelsubtype" valueSource="data/getValueByType.action"/>
+                <field dbName="orgtype" name="orgtype" type="int" title="组织类别" isNull="no" maxLength="1000" inputType="multipleSelect" valueFrom="ajax" valueParam="hotelorgtype" valueSource="data/getValueByType.action"/>
+                 -->
+                <field dbName="description" name="description" type="String" title="描述" isNull="yes" maxLength="1000"/>
+            </fields>           
+        </table>
+     </tables>
+
+</datamgt>
