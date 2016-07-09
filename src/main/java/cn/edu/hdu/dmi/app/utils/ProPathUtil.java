@@ -7,10 +7,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.edu.hdu.dmi.utils.Logger;
 
 
+/**
+ * 
+ * @author cp_hdu@163.com
+ * @version dmi V1.0.0, 2016年7月9日
+ * @see
+ * @since dmi V1.0.0
+ */
 public class ProPathUtil {
-	
+	protected static Logger logger = Logger.getLogger(ProPathUtil.class);
 	public static String getWebInfRealPath(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		return request.getSession().getServletContext().getRealPath("")+"/WEB-INF/";
@@ -49,7 +57,7 @@ public class ProPathUtil {
         }
         catch (java.io.UnsupportedEncodingException e)
         {
-            e.printStackTrace();
+        	logger.error(e.toString(), e);
         }
         return realPath;
     }

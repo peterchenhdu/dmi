@@ -7,6 +7,13 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import cn.edu.hdu.dmi.app.utils.ProPathUtil;
 
+/**
+ * 
+ * @author cp_hdu@163.com
+ * @version dmi V1.0.0, 2016年7月9日
+ * @see
+ * @since dmi V1.0.0
+ */
 public class InitialListener implements ServletContextListener {
 	private static final String LOG4J_CONFIG_PATH = "config/log4j.xml";
 

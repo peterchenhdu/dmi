@@ -48,9 +48,15 @@ import cn.edu.hdu.dmi.utils.Logger;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
+/**
+ * 
+ * @author cp_hdu@163.com
+ * @version dmi V1.0.0, 2016年7月9日
+ * @see
+ * @since dmi V1.0.0
+ */
 public class DataMgtServiceImpl implements IDataMgtService {
-	private static final Logger LOGGER = Logger
-			.getLogger(DataMgtServiceImpl.class);
+	protected static Logger logger = Logger.getLogger(DataMgtServiceImpl.class);
 	private IDataMgtDao dataMgtDao = new DataMgtDaoImpl();
 
 	private DictionaryService dictionaryService = new DictionaryService();
@@ -71,7 +77,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 		return null;
 	}
 
-	public String saveOrUpdateSingleData(HttpServletRequest request,
+	public RstObject saveOrUpdateSingleData(HttpServletRequest request,
 			String tableId, DataImportPromptMessage promtMsg,
 			String operateType, int gid) {
 		List<Object> objs = new ArrayList<Object>();
@@ -86,9 +92,9 @@ public class DataMgtServiceImpl implements IDataMgtService {
 				DMField dmField = dmTable.getFields().get(i);
 				Object[] objArrs = null;
 				Class<?>[] classObjArrs = null;
-				if (ConfigConstants.getTrue().equals(dmField.getNotEditFlag())
-						&& !ConfigConstants.getTrue().equals(
-								dmField.getIsPrimaryKey())) {
+				if (ConfigConstants.TRUE.equals(dmField.getNotEditFlag())
+						&& !ConfigConstants.TRUE.equals(dmField
+								.getIsPrimaryKey())) {
 					continue;
 				}
 
@@ -124,7 +130,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 						objArrs = new Object[] { reqStr };
 					}
 				} catch (Exception e) {
-
+					logger.error(e.toString(), e);
 				}
 				cl.getDeclaredMethod(
 						DateMGConfigurator.getSetMethodByFieldStr(dmField
@@ -132,7 +138,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 			}
 
 		} catch (Exception e) {
-
+			logger.error(e.toString(), e);
 		}
 
 		objs.add(obj);
@@ -141,7 +147,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 
 		RstObject rstObject = new RstObject();
 		rstObject.setExeSuccess(true);
-		return gson.toJson(rstObject);
+		return rstObject;
 
 	}
 
@@ -149,7 +155,8 @@ public class DataMgtServiceImpl implements IDataMgtService {
 	 * 
 	 * delete data
 	 * 
-	 * @see cn.edu.hdu.dmi.core.service.IDataMgtService#deleteData(java.lang.String, int)
+	 * @see cn.edu.hdu.dmi.core.service.IDataMgtService#deleteData(java.lang.String,
+	 *      int)
 	 * @param tableId
 	 *            //table id
 	 * @param gid
@@ -160,8 +167,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 		try {
 			dataMgtDao.deleteData(tableId, gid);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			LOGGER.error("delete data error!");
+			logger.error(e.toString(), e);
 		}
 		return gson.toJson("success");
 	}
@@ -262,13 +268,13 @@ public class DataMgtServiceImpl implements IDataMgtService {
 			}
 			in.close();
 		} catch (Exception e) {
+			logger.error(e.toString(), e);
 			promtMsg.addSysExceptionMsgList(e.getMessage());
-		}finally{
+		} finally {
 			try {
 				wb.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.toString(), e);
 			}
 		}
 
@@ -279,7 +285,6 @@ public class DataMgtServiceImpl implements IDataMgtService {
 			DataImportPromptMessage promtMsg) {
 		DMTable dmTable = DateMGConfigurator.getDMTableByType(type);
 		Object obj = null;
-
 
 		try {
 
@@ -406,6 +411,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 						objArrs = new Object[] { value };
 					}
 				} catch (Exception e) {
+					logger.error(e.toString(), e);
 					promtMsg.addErrorToList(new CellInfo(row, paramsIndex + 1,
 							"数据异常"));
 					continue;
@@ -416,6 +422,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 			}
 
 		} catch (Exception e) {
+			logger.error(e.toString(), e);
 			promtMsg.addSysExceptionMsgList(e.getMessage());
 		}
 
@@ -423,7 +430,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 
 	}
 
-	public String queryDataByName(String tableId, String keyWord, int start,
+	public Map<String, Object> queryDataByName(String tableId, String keyWord, int start,
 			int size) {
 
 		List<Object> list = dataMgtDao.queryObjects(tableId,
@@ -434,7 +441,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 		map.put("list", list);
 		map.put("totalNum", this.getCountByName(tableId, keyWord));
 
-		return gson.toJson(map);
+		return map;
 	}
 
 	/**
@@ -544,14 +551,13 @@ public class DataMgtServiceImpl implements IDataMgtService {
 			is = new ByteArrayInputStream(aa, 0, aa.length);
 			baos.close();
 		} catch (Exception e) {
-			e.printStackTrace();
-		}finally{
+			logger.error(e.toString(), e);
+		} finally {
 			try {
 				workbook.close();
-				
+
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.toString(), e);
 			}
 		}
 
@@ -603,14 +609,12 @@ public class DataMgtServiceImpl implements IDataMgtService {
 
 			baos.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
+			logger.error(e.toString(), e);
+		} finally {
 			try {
 				workbook.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.toString(), e);
 			}
 		}
 
@@ -629,7 +633,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 			HSSFCell cell = null;
 			// 取得sheet的数目
 			int sheetNum = wb.getNumberOfSheets();
-			for (int sheetIndex = 0; sheetIndex < sheetNum; ) {
+			for (int sheetIndex = 0; sheetIndex < sheetNum;) {
 
 				// 获取sheet对象
 				HSSFSheet sheet = wb.getSheetAt(sheetIndex);
@@ -714,6 +718,7 @@ public class DataMgtServiceImpl implements IDataMgtService {
 			in.close();
 			wb.close();
 		} catch (Exception e) {
+			logger.error(e.toString(), e);
 			promtMsg.addSysExceptionMsgList(e.getMessage());
 		}
 

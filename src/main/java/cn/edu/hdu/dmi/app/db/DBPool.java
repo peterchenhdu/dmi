@@ -11,11 +11,19 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import cn.edu.hdu.dmi.app.utils.ProPathUtil;
+import cn.edu.hdu.dmi.utils.Logger;
 
 import com.mchange.v2.c3p0.DataSources;
 
+/**
+ * 
+ * @author cp_hdu@163.com
+ * @version dmi V1.0.0, 2016年7月9日
+ * @see
+ * @since dmi V1.0.0
+ */
 public class DBPool {
-
+	protected Logger logger = Logger.getLogger(DBPool.class);
 	// 配置文件的所有信息
 	private static Properties c3p0Pro = null;
 	// 配置文件中关于C3P0的信息
@@ -44,7 +52,7 @@ public class DBPool {
 			c3p0Pro.load(new FileInputStream(ProPathUtil.getWebInfRealPath()
 					+ "config/c3p0.properties"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.toString(), e);
 		}
 		jdbcpropes = new Properties();
 		c3propes = new Properties();
@@ -64,7 +72,7 @@ public class DBPool {
 				// 加载驱动类
 				Class.forName(driverClass);
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				logger.error(e.toString(), e);
 			}
 		}
 
@@ -75,8 +83,7 @@ public class DBPool {
 					c3p0Pro.getProperty(JDBC_URL), jdbcpropes);
 			ds = DataSources.pooledDataSource(unPooled, c3propes);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.toString(), e);
 		}
 
 	}
@@ -95,6 +102,7 @@ public class DBPool {
 			if (rs != null)
 				rs.close();
 		} catch (SQLException e1) {
+			logger.error(e1.toString(), e1);
 			throw new SQLException("ResultSet close failed", e1);
 		} finally {
 			try {
@@ -102,12 +110,14 @@ public class DBPool {
 					ps.close();
 				}
 			} catch (SQLException e2) {
+				logger.error(e2.toString(), e2);
 				throw new SQLException("PreparedStatement close failed", e2);
 			} finally {
 				if (conn != null) {
 					try {
 						conn.close();
 					} catch (Exception e3) {
+						logger.error(e3.toString(), e3);
 						throw new SQLException("Connection close failed", e3);
 					}
 				}
@@ -125,6 +135,7 @@ public class DBPool {
 			try {
 				conn.close();
 			} catch (Exception e) {
+				logger.error(e.toString(), e);
 				throw new SQLException("Connection close failed", e);
 			}
 		}

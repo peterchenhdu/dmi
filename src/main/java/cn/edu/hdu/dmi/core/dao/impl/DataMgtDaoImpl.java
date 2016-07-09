@@ -15,9 +15,17 @@ import cn.edu.hdu.dmi.core.config.model.DMField;
 import cn.edu.hdu.dmi.core.config.model.DMTable;
 import cn.edu.hdu.dmi.core.dao.IDataMgtDao;
 import cn.edu.hdu.dmi.core.model.DataImportPromptMessage;
+import cn.edu.hdu.dmi.utils.Logger;
 
+/**
+ * 
+ * @author cp_hdu@163.com
+ * @version dmi V1.0.0, 2016年7月9日
+ * @see
+ * @since dmi V1.0.0
+ */
 public class DataMgtDaoImpl implements IDataMgtDao {
-
+	protected static Logger logger = Logger.getLogger(DataMgtDaoImpl.class);
 	@Override
 	public String saveOrUpdateDatas(List<Object> dataList, String type,
 			DataImportPromptMessage promtMsg, String operateType, int gid) {
@@ -74,7 +82,7 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 			conn.setAutoCommit(true);
 
 		} catch (SQLException e) {
-
+			logger.error(e.toString(), e);
 			promtMsg.addSysExceptionMsgList(e.getMessage());
 			try {
 				if (!conn.isClosed()) {
@@ -82,12 +90,12 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 					conn.setAutoCommit(true);
 				}
 			} catch (SQLException e1) {
-
+				logger.error(e1.toString(), e1);
 				promtMsg.addSysExceptionMsgList(e1.getMessage());
 			}
 			return "error";
 		} catch (Exception e) {
-
+			logger.error(e.toString(), e);
 			promtMsg.addSysExceptionMsgList(e.getMessage());
 			try {
 				if (!conn.isClosed()) {
@@ -95,7 +103,7 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 					conn.setAutoCommit(true);
 				}
 			} catch (SQLException e1) {
-
+				logger.error(e1.toString(), e1);
 				promtMsg.addSysExceptionMsgList(e1.getMessage());
 			}
 			return "error";
@@ -136,11 +144,11 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 		}
 
 		catch (SQLTimeoutException exc) {
-
+			logger.error(exc.toString(), exc);
 		}
 
 		catch (SQLException exc) {
-
+			logger.error(exc.toString(), exc);
 		} finally {
 			if (ps != null) {
 				ps.close();
@@ -223,7 +231,7 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 			conn.setAutoCommit(true);
 			return results;
 		} catch (SQLException e) {
-
+			logger.error(e.toString(), e);
 			try {
 				if (!conn.isClosed()) {
 					conn.setAutoCommit(false);
@@ -231,10 +239,10 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 					conn.setAutoCommit(true);
 				}
 			} catch (SQLException e1) {
-
+				logger.error(e1.toString(), e1);
 			}
 		} catch (Exception e) {
-
+			logger.error(e.toString(), e);
 			try {
 				if (!conn.isClosed()) {
 					conn.setAutoCommit(false);
@@ -242,14 +250,14 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 					conn.setAutoCommit(true);
 				}
 			} catch (SQLException e1) {
-
+				logger.error(e1.toString(), e1);
 			}
 
 		} finally {
 			try {
 				DBPool.getInstance().close(rs, ps, conn);
 			} catch (SQLException exc) {
-
+				logger.error(exc.toString(), exc);
 			}
 		}
 		return results;
@@ -260,7 +268,7 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 		try {
 			conn = DBPool.getInstance().getConnection();
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			logger.error(e2.toString(), e2);
 		}
 		Statement st = null;
 
@@ -277,13 +285,14 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 			conn.setAutoCommit(true);
 
 		} catch (SQLException e) {
+			logger.error(e.toString(), e);
 			try {
 				if (!conn.isClosed()) {
 					conn.rollback();
 					conn.setAutoCommit(true);
 				}
 			} catch (SQLException e1) {
-
+				logger.error(e1.toString(), e1);
 			}
 
 		} finally {
@@ -291,7 +300,7 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 				st.close();
 				conn.close();
 			} catch (SQLException e) {
-
+				logger.error(e.toString(), e);
 			}
 		}
 		return "success";
@@ -325,7 +334,7 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 
 			return records;
 		} catch (SQLException e) {
-
+			logger.error(e.toString(), e);
 			try {
 				if (!conn.isClosed()) {
 					conn.setAutoCommit(false);
@@ -333,10 +342,10 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 					conn.setAutoCommit(true);
 				}
 			} catch (SQLException e1) {
-
+				logger.error(e1.toString(), e1);
 			}
 		} catch (Exception e) {
-
+			logger.error(e.toString(), e);
 			try {
 				if (!conn.isClosed()) {
 					conn.setAutoCommit(false);
@@ -344,14 +353,14 @@ public class DataMgtDaoImpl implements IDataMgtDao {
 					conn.setAutoCommit(true);
 				}
 			} catch (SQLException e1) {
-
+				logger.error(e1.toString(), e1);
 			}
 
 		} finally {
 			try {
 				DBPool.getInstance().close(rs, ps, conn);
 			} catch (SQLException exc) {
-
+				logger.error(exc.toString(), exc);
 			}
 		}
 		return 0;
