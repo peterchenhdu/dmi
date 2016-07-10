@@ -17,7 +17,6 @@ public interface IDMProfileLabel {
 	String TYPE = "type";
 	String TITLE = "title";
 	String CLASS_PATH = "classpath";
-	String HAS_XY_VALUE = "hasXYValue";
 	String FIELDS = "fields";
 	String FIELD = "field";
 	String DB_NAME = "dbName";

@@ -44,8 +44,6 @@ public class DateMGConfigurator {
 				IDMProfileLabel.TITLE);
 		parser.aliasAttribute(DMTable.class, IDMProfileLabel.CLASS_PATH,
 				IDMProfileLabel.CLASS_PATH);
-		parser.aliasAttribute(DMTable.class, IDMProfileLabel.HAS_XY_VALUE,
-				IDMProfileLabel.HAS_XY_VALUE);
 		parser.aliasAttribute(DMTable.class, IDMProfileLabel.FIELDS,
 				IDMProfileLabel.FIELDS);
 
@@ -151,9 +149,7 @@ public class DateMGConfigurator {
 
 		for (int i = 0; i < dmTable.getFields().size(); i++) {
 			DMField filed = dmTable.getFields().get(i);
-			if (filed.getDbName().equals("null")
-					&& dmTable.getHasXYValue().equals(HAS_XY_VALUE))
-				continue;
+
 			querySql.append("obj." + filed.getDbName() + ",");
 
 		}

@@ -14,7 +14,6 @@ public class DMTable {
 	private String title;
 	private String type;
 	private String classpath;
-	private String hasXYValue;
 	private List<DMField> fields;
 
 	public String getName() {
@@ -47,14 +46,6 @@ public class DMTable {
 
 	public void setFields(List<DMField> fields) {
 		this.fields = fields;
-	}
-
-	public String getHasXYValue() {
-		return hasXYValue;
-	}
-
-	public void setHasXYValue(String hasXYValue) {
-		this.hasXYValue = hasXYValue;
 	}
 
 	public String getTitle() {

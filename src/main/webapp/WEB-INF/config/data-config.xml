@@ -3,7 +3,7 @@
     <version>0.1</version>
     <description>数据维护模块配置文件</description>
     <tables>  
-        <table name="school" type="school" title="学校" classpath="cn.edu.hdu.dmi.app.model.School" hasXYValue="yes">
+        <table name="school" type="school" title="学校" classpath="cn.edu.hdu.dmi.app.model.School">
             <fields>
                 <field dbName="gid" name="gid" type="int" title="ID" isPrimaryKey="true" isNull="no" maxLength="10" notEditFlag="true"/>
                 <field dbName="name" name="name" type="String" title="名称" isNull="no" maxLength="100"/>
@@ -17,7 +17,7 @@
         
        
                 
-        <table name="hotel" type="hotel" title="酒店" classpath="cn.edu.hdu.dmi.app.model.Hotel" hasXYValue="yes">
+        <table name="hotel" type="hotel" title="酒店" classpath="cn.edu.hdu.dmi.app.model.Hotel" >
             <fields>
                 <field dbName="gid" name="gid" type="int" title="ID" isNull="no" maxLength="10" notEditFlag="true"/>
                 <field dbName="name" name="name" type="String" title="名称" isNull="no" maxLength="100"/>
